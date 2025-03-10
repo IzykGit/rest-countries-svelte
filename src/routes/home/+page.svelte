@@ -115,7 +115,7 @@
               alt={country.name.common}
               class="h-46 w-full"
             />
-            <div class="h-fit flex flex-col px-8 py-12">
+            <div class="h-fit flex flex-col px-8 py-12 text-left">
               <h2 class="text-xl font-bold mb-4">{country.name.common}</h2>
               <div>
                 <p class="font-light">

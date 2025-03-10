@@ -5,7 +5,9 @@
   let data = $state({});
 
   $effect(() => {
-    countryData.subscribe((value) => (data = value));
+    countryData.subscribe((value) => {
+      data = value;
+    });
   });
 </script>
 
@@ -15,7 +17,8 @@
   </header>
   <main>
     {#if data}
-      <img src={data.name.common} alt="" />
+      <img src={data.flags.png} alt="" />
+      <h1>{data.names.common}</h1>
     {/if}
   </main>
 </div>
