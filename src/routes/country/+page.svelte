@@ -2,13 +2,7 @@
   import { countryData } from "$lib/country.js";
   import Nav from "../../components/nav/+page.svelte";
 
-  let data = $state({});
-
-  $effect(() => {
-    countryData.subscribe((value) => {
-      data = value;
-    });
-  });
+  let data = $countryData;
 </script>
 
 <div>
@@ -18,7 +12,7 @@
   <main>
     {#if data}
       <img src={data.flags.png} alt="" />
-      <h1>{data.names.common}</h1>
+      <h1>{data.name.common}</h1>
     {/if}
   </main>
 </div>
