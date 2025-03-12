@@ -1,4 +1,9 @@
 <script>
+  const { current } = $props();
+
+  $effect(() => {
+    console.log(current);
+  });
 </script>
 
 <nav class="h-20">

@@ -1,13 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { getAllCountries } from "../../api/fetchCountries.js";
-  import Nav from "../../components/nav/+page.svelte";
-  import SearchIcon from "../../assets/magnifying-glass.png";
+  import { getAllCountries } from "../api/fetchCountries.js";
+  import Nav from "../components/nav/+page.svelte";
+  import SearchIcon from "../assets/magnifying-glass.png";
   import { goto } from "$app/navigation";
   import { countryData } from "$lib/country.js";
 
   let allCountries: any = $state([]);
-  let filteredCountries: any = $state([]);
 
   let filterDropDown = $state(false);
 
@@ -18,10 +17,9 @@
 
   onMount(async () => {
     allCountries = await getAllCountries();
-    filteredCountries = allCountries;
   });
 
-  $effect(() => {
+  const filteredCountries = $derived(() => {
     let result = allCountries;
 
     if (filterByText) {
@@ -37,7 +35,7 @@
       );
     }
 
-    filteredCountries = result;
+    return result;
   });
 
   function navigateToCountry(country: object) {
@@ -104,37 +102,35 @@
     </div>
 
     <section class="grid grid-cols-[repeat(auto-fit,minmax(288px,1fr))] gap-8">
-      {#if filteredCountries.length > 0}
-        {#each filteredCountries as country}
-          <button
-            onclick={() => navigateToCountry(country)}
-            class="shadow-md cursor-pointer hover:scale-[1.01] duration-200 w-72 h-fit flex flex-col justify-between text-text-dark font-Nunito"
-          >
-            <img
-              src={country.flags.png}
-              alt={country.name.common}
-              class="h-46 w-full"
-            />
-            <div class="h-fit flex flex-col px-8 py-12 text-left">
-              <h2 class="text-xl font-bold mb-4">{country.name.common}</h2>
-              <div>
-                <p class="font-light">
-                  <span class="font-medium">Population:</span>
-                  {country.population}
-                </p>
-                <p class="font-light">
-                  <span class="font-medium">Region:</span>
-                  {country.region}
-                </p>
-                <p class="font-light">
-                  <span class="font-medium">Capital:</span>
-                  {country.capital}
-                </p>
-              </div>
+      {#each filteredCountries() as country}
+        <button
+          onclick={() => navigateToCountry(country)}
+          class="shadow-md cursor-pointer hover:scale-[1.01] duration-200 w-72 h-fit flex flex-col justify-between text-text-dark font-Nunito"
+        >
+          <img
+            src={country.flags.png}
+            alt={country.name.common}
+            class="h-46 w-full"
+          />
+          <div class="h-fit flex flex-col px-8 py-12 text-left">
+            <h2 class="text-xl font-bold mb-4">{country.name.common}</h2>
+            <div>
+              <p class="font-light">
+                <span class="font-medium">Population:</span>
+                {country.population}
+              </p>
+              <p class="font-light">
+                <span class="font-medium">Region:</span>
+                {country.region}
+              </p>
+              <p class="font-light">
+                <span class="font-medium">Capital:</span>
+                {country.capital}
+              </p>
             </div>
-          </button>
-        {/each}
-      {/if}
+          </div>
+        </button>
+      {/each}
     </section>
   </main>
 </div>
