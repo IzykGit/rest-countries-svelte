@@ -2,7 +2,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-text-dark: hsl(200, 15%, 8%);
-  --color-text-light: hsl(0, 0%, 100%);
   --font-Nunito: font-family: "IBM Plex Sans", sans-serif;
+}
+
+
+:global(body) {
+  --color-text-light: hsl(0, 0%, 100%);
+}
+
+:global(body.dark-mode) {
+  --color-text-dark: hsl(200, 15%, 8%);
 }

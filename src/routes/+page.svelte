@@ -50,9 +50,9 @@
   </header>
 
   <main class="max-w-[1400px] mx-auto px-12">
-    <div class="flex justify-between my-12">
+    <div class="flex flex-col gap-4 md:flex-row justify-between my-12">
       <form
-        class="py-4 px-6 min-w-96 text-md rounded-md shadow-lg flex items-center gap-4"
+        class="py-4 px-6 w-full md:w-96 text-md rounded-md shadow-lg flex items-center gap-4"
       >
         <img src={SearchIcon} alt="Search Icon" class="w-5 h-5" />
         <input

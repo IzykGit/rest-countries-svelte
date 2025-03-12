@@ -6,8 +6,12 @@
   import Back from "../../assets/back.png";
 
   function returnHome() {
-    goto("/home");
+    goto("/");
   }
+
+  const langkey = Object.keys($countryData.languages)[0];
+  const language = $countryData.languages[langkey];
+  console.log(language);
 
   console.log($countryData);
 </script>
@@ -16,7 +20,7 @@
   <header>
     <Nav />
   </header>
-  <main class="flex gap-20 flex-col max-w-[1400px] mx-auto px-12">
+  <main class="flex gap-20 flex-col max-w-[1400px] mx-auto px-12 py-12">
     {#if $countryData}
       <div class="w-full">
         <button
@@ -31,23 +35,69 @@
         <img
           src={$countryData.flags.png}
           alt={$countryData.name.common}
-          class="h-80"
+          class="h-72 md:h-96 w-full md:w-1/2"
         />
 
-        <section class="py-12 flex flex-col gap-4">
+        <section class="py-4 flex flex-col gap-4">
           <h1 class="font-bold text-2xl">{$countryData.name.common}</h1>
 
-          <div>
-            <p>
-              <span>Native Name:</span>{$countryData.name.nativeName.official}
-            </p>
-            <p><span>Population:</span>{$countryData.population}</p>
-            <p><span>Region:</span>Europe</p>
-            <p><span>Sub Region:</span></p>
-            <p><span>Capital:</span></p>
-            <p><span>Top Level Domain:</span></p>
-            <p><span>Currencies:</span></p>
-            <p><span>Languages:</span></p>
+          <ul class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <li>
+              <p>
+                <span class="font-medium text-lg">Native Name:</span>
+                {$countryData.name.official}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Population:</span>
+                {$countryData.population}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Region:</span>
+                {$countryData.region}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Sub Region:</span>
+                {$countryData.subregion}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Capital:</span>
+                {$countryData.capital[0]}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Top Level Domain:</span>
+                {$countryData.tld[0]}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Currencies:</span>
+                {$countryData.currencies.CHF?.name}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="font-medium text-lg">Languages:</span>
+                {language}
+              </p>
+            </li>
+          </ul>
+
+          <div class="mt-6 flex flex-wrap items-center gap-4">
+            <p class="font-medium text-lg mr-4">Border Countries:</p>
+
+            {#each $countryData.borders as border}
+              <p class="p-4 shadow-md">{border}</p>
+            {/each}
           </div>
         </section>
       </div>
